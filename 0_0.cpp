@@ -22,13 +22,7 @@ public:
 		matrix = A;
 	}
 	void Reset(int num_rows, int num_cols) {
-		if (num_rows < 0 or num_cols < 0) {
-			throw out_of_range("");
-		}
-		columns = num_cols;
-		rows = num_rows;
-		vector<vector<int>> A(rows, vector<int>(columns));
-		matrix = A;
+		Matrix(num_rows, num_cols);
 	}
 	int At(int row, int column) const {
 		if (row >= 0 && row < rows
@@ -84,9 +78,10 @@ istream& operator >>(istream& stream, Matrix& matrix) {
 bool operator ==(const Matrix& left, const Matrix& right) {
 	if (left.GetNumRows() == right.GetNumRows() && left.GetNumColumns() == right.GetNumColumns()) {
 		for (int i = 0; i < left.GetNumRows(); ++i) {
-			for (int j = 0; i < left.GetNumColumns(); ++j)
-			if (left.At(i, j) != right.At(i, j)) {
-				return false;
+			for (int j = 0; i < left.GetNumColumns(); ++j) {
+				if (left.At(i, j) != right.At(i, j)) {
+					return false;
+				}
 			}
 		}
 		return true;
